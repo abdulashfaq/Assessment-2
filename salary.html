@@ -4,6 +4,10 @@
 <title>Salary Managment System</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
+.center{
+padding: 20px;
+text-align: center;
+}
 * {box-sizing: border-box;}
 img {
   border-radius: 20%;
@@ -228,10 +232,11 @@ body {
 <div style="padding-left:16px">
   <div class="bg-img">
 <form >
-<table cellspacing="2" align="center" cellspacing="8" border="0">
+<div class="center">
+<table cellspacing="8" align="center" >
    <div class="container">
     <tr><td align="right"> <label for="id"><br><b>  EmployeeID: </td></b></label></td>
-     <td><input type="text" placeholder="Enter ID" name="eid" size="300" required></br></td></tr>
+     <td><input type="text" placeholder="Enter ID" name="eid" size="150" required></br></td></tr>
 <tr><td align="right"><label for="id"><br><b>  EmployeeName: </td></b></label></td>
      <td><input type="text" placeholder="Enter Name" name="eid" required></br></td></tr>
 <tr><td align="right"><label for="id"><br><b>  Age: </td></b></label></td>
@@ -244,11 +249,14 @@ body {
      <td><input type="text" placeholder="Enter Grade" name="eid" required></br></td></tr>
 <tr><td align="right"><label for="id"><br><b>  GrossSalary: </td></b></label></td>
      <td><input type="text" placeholder="Enter Salary" name="eid" required></br></td></tr>
-      <div class="clearfix">
-       <tr><td align="right"><input type="submit" name="Submit"></td></tr>
+</table>
+<label>
+       <div text-align="center"><input type="checkbox" name="rememberme" style="margin-bottom:15px"><FONT COLOR= white>Remember Me
+       </label><br><br><br></div>
+      <div text-align="center"><input type="submit" name="SUBMIT"></div>
       </div>
     </div>
-</table>
+</div>
   </form>
 </div>
 
