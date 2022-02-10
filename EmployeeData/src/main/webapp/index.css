@@ -1,0 +1,47 @@
+@charset "ISO-8859-1";
+.navsearch {
+    font-weight: bold;
+    align-content: right;
+}
+
+.image {
+    width: 90px;
+    height: 60px;
+}
+
+.bg-container {
+    background-color: red;
+    background-image: url("https://static.vecteezy.com/system/resources/thumbnails/000/119/108/small/plain-dirty-grunge-background.jpg");
+
+}
+
+.heading {
+    margin-left: 5vw;
+    margin-top: 1vw;
+}
+
+.details {
+    margin-left: 30px;
+    margin-top: 30px;
+    margin-right: 10vw;
+}
+
+.texts {
+    margin: 10px;
+}
+
+.button {
+    text-align: center;
+}
+
+.tst {
+    border-radius: 20px;
+}
+
+.botns {
+    height: 55px;
+    width: 115px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}

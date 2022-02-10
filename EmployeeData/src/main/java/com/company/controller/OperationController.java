@@ -24,6 +24,7 @@ public class OperationController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String operation = request.getParameter("form");
 		operation = operation.toLowerCase();
+		String search = "";
 		switch (operation) {
 		case "addemployeeoperation":
 		
@@ -31,6 +32,11 @@ public class OperationController extends HttpServlet {
 	        addemployeeOperation(employee);
 	        
         break;
+		case "searchOpeartion":
+				search = request.getParameter("searchOperation");
+				searchEmployee(search);
+				
+			break;
 		default:
 			errorPage(request, response);
 			break;
@@ -38,7 +44,11 @@ public class OperationController extends HttpServlet {
 		
 		
 		request.getRequestDispatcher("index.jsp").forward(request, response);
+	}	private void searchEmployee(String  search) {
+		new EmployeeModel().searchEmployee(datasource,search);
+		
 	}
+
 
 	private void errorPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
@@ -47,7 +57,12 @@ public class OperationController extends HttpServlet {
 	}
 
 	private void addemployeeOperation(Employee employee) {
-		new EmployeeModel().addEmployee(datasource, employee);
+		try {
+			new EmployeeModel().addEmployee(datasource, employee);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return;
 	}
 
