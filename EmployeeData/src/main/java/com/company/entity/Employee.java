@@ -5,8 +5,7 @@ import java.sql.Date;
 public class Employee {
 
 	private int EmpID, Age, MonthLeavesCount;
-	private float Basic_Sal, NetSalary, HRA, Total_TaxPaid, GrossSal, Provident_Fund, Professional_Tax, Income_Tax,
-			HIS;
+	private float Basic_Sal, NetSalary, HRA, Total_TaxPaid, GrossSal, Provident_Fund, Professional_Tax, Income_Tax,HIS;
 	private String EmpName, Department, Grade;
 	private Date date;
 

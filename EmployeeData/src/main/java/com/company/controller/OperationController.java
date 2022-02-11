@@ -12,7 +12,6 @@ import javax.sql.DataSource;
 import com.company.entity.Employee;
 import com.company.model.EmployeeModel;
 import jakarta.annotation.Resource;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -43,6 +42,10 @@ public class OperationController extends HttpServlet {
 		case "addemployeeoperation":
 			Employee employee = new Employee(Integer.parseInt(request.getParameter("EmpId")),Integer.parseInt(request.getParameter("Age")),Float.parseFloat(request.getParameter("GrossSal")),request.getParameter("EmpName"),request.getParameter("Dept"),request.getParameter("Grade"),Date.valueOf(request.getParameter("DOJ")));
 	        addemployeeOperation(employee);
+	        List<Employee> listEmployee = new ArrayList<>();
+			listEmployee = new EmployeeModel().showEmployee(datasource,employee.getEmpID());
+			request.setAttribute("listEmployee", listEmployee);
+			request.setAttribute("title", "List of employee");
 			request.getRequestDispatcher("success.jsp").forward(request, response);
 	        break;
 		default:
@@ -60,10 +63,8 @@ public class OperationController extends HttpServlet {
 		try {
 			new EmployeeModel().addEmployee(datasource, employee);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return;
 	}
 
 }

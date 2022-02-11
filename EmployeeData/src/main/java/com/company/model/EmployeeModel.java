@@ -113,6 +113,7 @@ public class EmployeeModel {
 		Connection connect = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		search = "%"+search+"%";
 		try {
 			connect = datasource.getConnection();
 			if(StringUtils.isNumeric(search)) {
@@ -134,7 +135,7 @@ public class EmployeeModel {
 			else {
 				String query = "select t1.*,t2.GrossSal,t2.NetSalary,t3.Income_Tax From employee as t1 join salary as t2 on t1.EmpID = t2.EmpId "
 						+ " join saldeduction as t3 on t3.Empid = t1.EmpID "
-						+ " where t1.EmpName =  ?"
+						+ " where t1.EmpName like ? "
 						+ " order by EmpId;";
 				stmt = connect.prepareStatement(query);
 				stmt.setString(1, search);
@@ -167,5 +168,47 @@ public class EmployeeModel {
 		
 		return listEmployees;
 	}
-
+	public List<Employee> showEmployee(DataSource datasource, int empID) {
+		List<Employee> listEmployees = new ArrayList<>();
+		Connection connect = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			connect = datasource.getConnection();
+				String query = "select t1.*,t2.GrossSal,t2.NetSalary,t3.Income_Tax From employee as t1 join salary as t2 on t1.EmpID = t2.EmpId "
+						+ " join saldeduction as t3 "
+						+ " on t3.Empid = t1.EmpID "
+						+ " where t1.EmpID = ?"
+						+ " order by EmpID;";
+				stmt = connect.prepareStatement(query);
+				stmt.setInt(1, empID);
+				rs = stmt.executeQuery();
+				while(rs.next()) {
+					listEmployees.add(new Employee(rs.getInt("EmpId"),rs.getInt("Age"),rs.getFloat("NetSalary"),
+							rs.getFloat("GrossSal"),rs.getFloat("Income_Tax"),rs.getString("EmpName"),
+							rs.getString("Department"),rs.getString("Grade"),rs.getDate("DateOfJoining")));
+				}
+				
+			}
+			
+		catch(SQLException e) {
+			e.printStackTrace();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			try {
+				stmt.close();
+				rs.close();
+				connect.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return listEmployees;
+	}
 }

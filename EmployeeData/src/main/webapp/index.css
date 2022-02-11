@@ -1,11 +1,10 @@
-
 .navsearch {
     font-weight: bold;
     align-content: right;
 }
 
 .bg-form-container {
-    background-color: white;
+    background-color: red;
     width: 50%;
     margin-left: 20%;
 
@@ -19,10 +18,18 @@
     height: 60px;
 }
 
-.bg-container {
+.bgcontainer {
 
-    background-image: url("https://static.vecteezy.com/system/resources/thumbnails/000/119/108/small/plain-dirty-grunge-background.jpg");
+    background-image: url("https://wallpaperaccess.com/full/956711.jpg");
     height: 100vh;
+}
+
+.middle {
+    margin-top: 25%;
+    margin-left: 22%;
+	position: relative;
+	text-align: center;
+	color: white;
 }
 
 .heading {
@@ -35,6 +42,15 @@
     margin-left: 30px;
     margin-top: 30px;
     margin-right: 10vw;
+}
+
+.centered {
+     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+  
 }
 
 .texts {
