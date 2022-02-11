@@ -4,6 +4,7 @@
 <html>
 
 <head>
+
 <link rel="stylesheet"
  href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
@@ -20,8 +21,6 @@
  integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
  crossorigin="anonymous"></script>
  <link rel ="stylesheet" href = "index.css"/>
-
-
 
 
 
@@ -71,11 +70,11 @@ function valid()
    </a>
    <div class="collapse navbar-collapse navsearch"
     id="navbarSupportedContent">
-    <form class="form-inline my-2 my-lg-0 ml-auto">
-     <input class="form-control mr-sm-2" type="search"
-      placeholder="Search" aria-label="Search" name = "searchOperation">
-      <input type="hidden" name="form" value="addemployeeOperation">
-     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    <form action="${pageContext.request.contextPath}/operation" class="form-inline my-2 my-lg-0 ml-auto" method="get">
+	     <input class="form-control mr-sm-2" type="search"
+	      placeholder="Search" aria-label="Search" name = "search">
+	      <input type="hidden" name="form" value="searchOperation">
+	     <input class="btn btn-outline-success my-2 my-sm-0" type="submit" value ="Search">
     </form>
    </div>
   </nav>
@@ -134,14 +133,12 @@ function valid()
       </b>
       </label>
       </td>
-      <td><input list="Department"
-       placeholder="Select your department." name="Dept" id="Dept" size="40"
-       required> 
-       <datalist id="Department">
-        <option value="IT">
-        <option value="BPS">
-        <option value="IS">
-       </datalist> </br></td>
+      <td><select placeholder="Select your department." name="Dept" style ="width:250px" id="Dept" required> 
+       
+        <option value="IT">IT</option>
+        <option value="BPS">BPS</option>
+        <option value="IS">IS</option>
+       </select> </br></td>
      </tr>
      <tr>
       <td align="right"><label for="id"><br>
@@ -150,15 +147,14 @@ function valid()
       </b>
       </label>
       </td>
-      <td><input list="Grade" placeholder="Select your Grade."
-       name="Grade" id="Grade" size="40" required> 
-       <datalist id="Grade">
-	        <option value="C1Y">
-	        <option value="C1">
-	        <option value="C2">
-	        <option value="C2A">
-	        <option value="C3B">
-       </datalist> </br></td>
+      <td><select  placeholder="Select your Grade." style ="width:250px" name="Grade" id="Grade"  required> 
+       
+	        <option value="C1Y">C1Y</option>
+	        <option value="C1">C1</option>
+	        <option value="C2">C2</option>
+	        <option value="C2A">C2A</option>
+	        <option value="C3B">C3B</option>
+       </select> </br></td>
      </tr>
      <tr>
       <td align="right"><label for="id"><br>

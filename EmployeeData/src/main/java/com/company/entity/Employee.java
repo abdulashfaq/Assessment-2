@@ -10,16 +10,28 @@ public class Employee {
 	private String EmpName, Department, Grade;
 	private Date date;
 
-	public Employee(int empID, int age, int grossSal, String empName, String department, String grade, Date date) {
-		super();
+	public Employee(int empID, int age, float f, String empName, String department, String grade, Date date) {
 		EmpID = empID;
 		Age = age;
-		GrossSal = grossSal;
+		GrossSal = f;
 		EmpName = empName;
 		Department = department;
 		Grade = grade;
 		this.date = date;
 
+	}
+	
+	public Employee(int empID, int age, float netSalary, float grossSal, float income_Tax, String empName,
+			String department, String grade, Date date) {
+		EmpID = empID;
+		Age = age;
+		NetSalary = netSalary;
+		GrossSal = grossSal;
+		Income_Tax = income_Tax;
+		EmpName = empName;
+		Department = department;
+		Grade = grade;
+		this.date = date;
 	}
 
 	public Employee(int empID, int age, int grossSal, int netSalary, int total_TaxPaid, int basic_Sal, int hRA,
@@ -43,6 +55,8 @@ public class Employee {
 		Grade = grade;
 		this.date = date;
 	}
+
+	
 
 	public int getEmpID() {
 		return EmpID;

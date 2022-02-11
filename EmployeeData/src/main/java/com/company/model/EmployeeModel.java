@@ -3,12 +3,17 @@ package com.company.model;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.company.entity.Employee;
+
 
 public class EmployeeModel {
 	
@@ -103,23 +108,64 @@ public class EmployeeModel {
 			}
 		}
 	}
-	public boolean searchEmployee(DataSource datasource,String search) {
+	public List<Employee> searchEmployee(DataSource datasource,String search) {
+		List<Employee> listEmployees = new ArrayList<>();
 		Connection connect = null;
-		PreparedStatement statement = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		try {
 			connect = datasource.getConnection();
-			String query = "Select name ";
-			return true;
+			if(StringUtils.isNumeric(search)) {
+				String query = "select t1.*,t2.GrossSal,t2.NetSalary,t3.Income_Tax From employee as t1 join salary as t2 on t1.EmpID = t2.EmpId "
+						+ " join saldeduction as t3 "
+						+ " on t3.Empid = t1.EmpID "
+						+ " where t1.EmpID = ?"
+						+ " order by EmpID;";
+				stmt = connect.prepareStatement(query);
+				stmt.setInt(1, Integer.parseInt(search));
+				rs = stmt.executeQuery();
+				while(rs.next()) {
+					listEmployees.add(new Employee(rs.getInt("EmpId"),rs.getInt("Age"),rs.getFloat("NetSalary"),
+							rs.getFloat("GrossSal"),rs.getFloat("Income_Tax"),rs.getString("EmpName"),
+							rs.getString("Department"),rs.getString("Grade"),rs.getDate("DateOfJoining")));
+				}
+				
+			}
+			else {
+				String query = "select t1.*,t2.GrossSal,t2.NetSalary,t3.Income_Tax From employee as t1 join salary as t2 on t1.EmpID = t2.EmpId "
+						+ " join saldeduction as t3 on t3.Empid = t1.EmpID "
+						+ " where t1.EmpName =  ?"
+						+ " order by EmpId;";
+				stmt = connect.prepareStatement(query);
+				stmt.setString(1, search);
+				rs = stmt.executeQuery();
+				while(rs.next()) {
+					listEmployees.add(new Employee(rs.getInt("EmpId"),rs.getInt("Age"),rs.getFloat("NetSalary"),
+							rs.getFloat("GrossSal"),rs.getFloat("Income_Tax"),rs.getString("EmpName"),
+							rs.getString("Department"),rs.getString("Grade"),rs.getDate("DateOfJoining")));
+				}
+			}
 		}
-		catch (SQLException e) {
+		catch(SQLException e) {
 			e.printStackTrace();
-			return false;
 		}
 		catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
-			return false;
 		}
+		finally {
+			try {
+				stmt.close();
+				rs.close();
+				connect.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return listEmployees;
 	}
 
 }

@@ -1,7 +1,17 @@
-@charset "ISO-8859-1";
+
 .navsearch {
     font-weight: bold;
     align-content: right;
+}
+
+.bg-form-container {
+    background-color: white;
+    width: 50%;
+    margin-left: 20%;
+
+    margin-top: 10%;
+    margin-bottom: 10%;
+
 }
 
 .image {
@@ -10,14 +20,15 @@
 }
 
 .bg-container {
-    background-color: red;
-    background-image: url("https://static.vecteezy.com/system/resources/thumbnails/000/119/108/small/plain-dirty-grunge-background.jpg");
 
+    background-image: url("https://static.vecteezy.com/system/resources/thumbnails/000/119/108/small/plain-dirty-grunge-background.jpg");
+    height: 100vh;
 }
 
 .heading {
     margin-left: 5vw;
     margin-top: 1vw;
+    text-align: center;
 }
 
 .details {
@@ -40,7 +51,7 @@
 
 .botns {
     height: 55px;
-    width: 115px;
+    width: 150px;
     border-radius: 10px;
     margin-bottom: 20px;
     margin-top: 10px;
