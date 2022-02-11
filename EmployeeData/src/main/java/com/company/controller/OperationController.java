@@ -8,6 +8,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
+import org.apache.log4j.Logger;
 
 import com.company.entity.Employee;
 import com.company.model.EmployeeModel;
@@ -24,18 +25,21 @@ public class OperationController extends HttpServlet {
     @Resource(name="jdbc/project")
     private DataSource datasource;
    
-	
+	final Logger logger = Logger.getLogger(OperationController.class.getName());
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		logger.info("****Entering the Search****");
 		String search = req.getParameter("search");
 		List<Employee> listEmployee = new ArrayList<>();
 		listEmployee = new EmployeeModel().searchEmployee(datasource,search);
 		req.setAttribute("listEmployee", listEmployee);
 		req.setAttribute("title", "List of users");
 		req.getRequestDispatcher("search.jsp").forward(req, resp);
+		logger.info("****Exiting the Search****");
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.info("****Entering the Add Employee Data****");
 		String operation = request.getParameter("form");
 		operation = operation.toLowerCase();
 		switch (operation) {
@@ -52,9 +56,11 @@ public class OperationController extends HttpServlet {
 			errorPage(request, response);
 			break;
 		}
-		
-	}	
+		logger.info("****Exiting the Search****");
+	}
+	
 	private void errorPage(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		logger.error("****Operation Failed****");
 		request.getRequestDispatcher("error.jsp").forward(request, response);
 		
 	}

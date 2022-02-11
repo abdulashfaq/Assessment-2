@@ -15,7 +15,7 @@
 			var reg = ^[a-zA-Z0-9]+\z;
 			if(search.value.match(reg))
 		    {
-				alert("only characters and spaces are allowed");
+				alert("only characters and numbers are allowed");
 		    }
 		}
 	</script>

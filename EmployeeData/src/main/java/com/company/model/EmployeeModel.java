@@ -11,17 +11,20 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 
 import com.company.entity.Employee;
 
 
 public class EmployeeModel {
-	
+	final Logger logger = Logger.getLogger(EmployeeModel.class.getName());
 	public boolean addEmployee(DataSource datasource,Employee employee) {
+		logger.info("****Entering the Add Employee Data Method****");
 		Connection  connect = null;
 		PreparedStatement statement,stmt,stmt2;
 		statement=stmt=stmt2=null;
 		CalculateDeductions calculate = new CalculateDeductions();
+		logger.info("****Performing Add Operation in Table 1****");
 		
 		try {
 			connect = datasource.getConnection();
@@ -60,6 +63,7 @@ public class EmployeeModel {
 			float Income_Tax = employee.getIncome_Tax();
 			float HIS = employee.getHIS();
 			int MonthlyLeaves = employee.getMonthLeavesCount();
+			logger.info("****Performing Add Operation in Table 2****");
 			
 			String query2 = "INSERT INTO salary (EmpId, NetSalary, GrossSal, Total_TaxPaid, Basic_Sal, HRA, MonthleavesCount, date) VALUES (?,?,?,?,?,?,?,?);";
 			stmt = connect.prepareStatement(query2);
@@ -71,6 +75,7 @@ public class EmployeeModel {
 			stmt.setFloat(6, HRA);
 			stmt.setInt(7, MonthlyLeaves);
 			stmt.setDate(8, doj);
+			logger.info("****Performing Add Operation in Table 3****");
 			
 			String query3 = "INSERT INTO saldeduction (Empid, Provident_Fund, Professional_Tax, Income_Tax, HIS, date) VALUES (?,?,?,?,?,?);";
 			stmt2 = connect.prepareStatement(query3);
@@ -106,24 +111,28 @@ public class EmployeeModel {
 			catch (Exception e) {
 				e.printStackTrace();
 			}
+			logger.info("****Exiting the add Employee  Method****");
 		}
+		
 	}
 	public List<Employee> searchEmployee(DataSource datasource,String search) {
+		logger.info("****Entering the Search Employee Data Method****");
 		List<Employee> listEmployees = new ArrayList<>();
 		Connection connect = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		search = "%"+search+"%";
+		
 		try {
 			connect = datasource.getConnection();
 			if(StringUtils.isNumeric(search)) {
+				search = "%"+search+"%";
 				String query = "select t1.*,t2.GrossSal,t2.NetSalary,t3.Income_Tax From employee as t1 join salary as t2 on t1.EmpID = t2.EmpId "
 						+ " join saldeduction as t3 "
 						+ " on t3.Empid = t1.EmpID "
-						+ " where t1.EmpID = ?"
+						+ " where t1.EmpID like ?"
 						+ " order by EmpID;";
 				stmt = connect.prepareStatement(query);
-				stmt.setInt(1, Integer.parseInt(search));
+				stmt.setString(1, search);
 				rs = stmt.executeQuery();
 				while(rs.next()) {
 					listEmployees.add(new Employee(rs.getInt("EmpId"),rs.getInt("Age"),rs.getFloat("NetSalary"),
@@ -133,6 +142,7 @@ public class EmployeeModel {
 				
 			}
 			else {
+				search = "%"+search+"%";
 				String query = "select t1.*,t2.GrossSal,t2.NetSalary,t3.Income_Tax From employee as t1 join salary as t2 on t1.EmpID = t2.EmpId "
 						+ " join saldeduction as t3 on t3.Empid = t1.EmpID "
 						+ " where t1.EmpName like ? "
@@ -165,10 +175,11 @@ public class EmployeeModel {
 				e.printStackTrace();
 			}
 		}
-		
+		logger.info("****Exiting the Search Employee Data Method****");
 		return listEmployees;
 	}
 	public List<Employee> showEmployee(DataSource datasource, int empID) {
+		logger.info("****Entering the Show Data Employee Method****");
 		List<Employee> listEmployees = new ArrayList<>();
 		Connection connect = null;
 		PreparedStatement stmt = null;
@@ -209,6 +220,7 @@ public class EmployeeModel {
 				e.printStackTrace();
 			}
 		}
+		logger.info("****Exiting the Show Data Employee Method****");
 		return listEmployees;
 	}
 }

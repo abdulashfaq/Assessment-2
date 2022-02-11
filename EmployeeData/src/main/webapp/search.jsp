@@ -17,7 +17,7 @@
 			var reg = ^[a-zA-Z0-9]+\z;
 			if(search.value.match(reg))
 		    {
-				alert("only characters and spaces are allowed");
+				alert("only characters and numbers are allowed");
 		    }
 		}
 	</script>
@@ -32,7 +32,7 @@
             </a>
         </div>
             <div class="collapse navbar-collapse navsearch" id="navbarSupportedContent">
-                <form onsubmit="return valid()" name="myform" action="${pageContext.request.contextPath}/operation" class="form-inline my-2 my-lg-0 ml-auto" method="get">
+                <form onsubmit="valid()" name="myform" action="${pageContext.request.contextPath}/operation" class="form-inline my-2 my-lg-0 ml-auto" method="get">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="index.jsp">Home</a>
